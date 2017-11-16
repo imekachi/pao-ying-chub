@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import ChooseWeaponPage from './components/ChooseWeaponPage'
 
+import ChooseWeaponPage from './components/ChooseWeaponPage'
+import FightLoadingPage from './components/FightLoadingPage'
 import IntroPage from './components/IntroPage'
 import { PAGES } from './constants/pages'
-import { getFightResult, isDraw, isWin } from './game/core'
-import FightLoadingPage from './components/FightLoadingPage'
+import { getFightResult } from './game/core'
 
 const Outer = styled.div`
   position: absolute;

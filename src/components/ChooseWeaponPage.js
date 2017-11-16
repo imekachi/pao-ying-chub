@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { WEAPON_NAMES } from '../constants/weapons'
 
+import { WEAPON_NAMES } from '../constants/weapons'
 import Weapon from './Weapon'
 
 const Wrapper = styled.div`

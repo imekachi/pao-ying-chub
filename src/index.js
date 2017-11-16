@@ -18,7 +18,7 @@ injectGlobal`
     font-family: Tahoma, sans-serif;
     box-sizing: border-box;
     background: deepskyblue url(${powImg}) no-repeat center center;
-    background-size: 100%;
+    background-size: contain;
   }
   
   * {
