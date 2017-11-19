@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import Avatar from './Avatar'
 
 const Wrapper = styled.div`
   
@@ -7,13 +8,14 @@ const Wrapper = styled.div`
 
 const PlayBtn = styled.button`
   font-family: "Comic Sans MS", sans-serif;
-  font-size: 50px;
+  font-size: 45px;
   font-weight: bold;
   border: 3px solid #333;
   border-bottom-width: 6px;
   border-radius: 10px;
-  padding: 15px 70px;
-  background-color: #fffa00;
+  padding: 12px 70px;
+  margin: 40px auto;
+  background-color: #fcf83d;
   cursor: pointer;
   
   &:hover {
@@ -23,7 +25,9 @@ const PlayBtn = styled.button`
 
 const IntroPage = ({ onClickPlay }) => (
   <Wrapper>
+    <Avatar mascot/>
     <PlayBtn onClick={onClickPlay}>Play!!</PlayBtn>
+    <Avatar/>
   </Wrapper>
 )
 

@@ -1,41 +1,57 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
-import Weapon from './Weapon'
+import { stylesResponsive, Weapon, WeaponBox, WeaponWrapper } from './Weapon'
+import { WEAPON_NAMES } from '../constants/weapons'
+import { parseTime } from '../util/unitConverter'
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-`
-
-const Result = styled.div`
-  width: 220px;
-  height: 220px;
-  line-height: 220px;
+const Result = WeaponBox.extend`
+  line-height: ${stylesResponsive.mobile.height};
   font-family: 'Comic Sans MS', sans-serif;
   font-size: 60px;
   font-weight: bold;
   color: #FFFFFF;
 `
 
-const FightLoadingPage = ({ fightData, loadingTime, callBack }) => {
-  const { playerWeapon, opponentWeapon, isWin, isDraw } = fightData
-  let resultText = 'LOSE'
-  let isLose = !isWin && !isDraw
+export const handTilt = {
+  start: '-20deg',
+  end: '10deg',
+}
 
-  if (isWin) {
-    resultText = 'WIN'
-  } else if (isDraw) {
-    resultText = 'DRAW'
+const shakingHand = keyframes`
+  0% {
+    transform: rotate(${handTilt.start});
   }
+  
+  50% {
+    transform: rotate(${handTilt.end});
+  }
+  
+  100% {
+    transform: rotate(${handTilt.start});
+  }
+`
+
+const WeaponLoading = Weapon.extend`
+  transform: rotate(${handTilt.start});
+  transform-origin: bottom;
+  animation: ${shakingHand} ${props => props.duration} ${props => props.repeatCount || 'infinite'};
+`
+
+const FightLoadingPage = ({ fightData, shakingCount, callBack }) => {
+  const { playerWeapon, opponentWeapon } = fightData
+  const animationTimeLap = 600
+  const loadingTime = ((shakingCount - 1) * animationTimeLap) + (animationTimeLap / 2)
+  // const loadingTime = shakingCount * animationTimeLap
 
   setTimeout(callBack, loadingTime)
   return (
-    <Wrapper>
-      <Weapon active name={playerWeapon} lose={isLose}/>
-      <Result>{resultText}</Result>
-      <Weapon active name={opponentWeapon} lose={isWin}/>
-    </Wrapper>
+    <WeaponWrapper>
+      {/*<Weapon active name={playerWeapon}/>*/}
+      <WeaponLoading duration={parseTime(animationTimeLap)} name={WEAPON_NAMES.ROCK}/>
+      <Result />
+      <WeaponLoading duration={parseTime(animationTimeLap)} name={WEAPON_NAMES.ROCK}/>
+    </WeaponWrapper>
   )
 }
 

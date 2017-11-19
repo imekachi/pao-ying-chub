@@ -4,8 +4,12 @@ import styled from 'styled-components'
 import ChooseWeaponPage from './components/ChooseWeaponPage'
 import FightLoadingPage from './components/FightLoadingPage'
 import IntroPage from './components/IntroPage'
+import PlayersInfo from './components/PlayersInfo'
+import ResultPage from './components/ResultPage'
 import { PAGES } from './constants/pages'
 import { getFightResult } from './game/core'
+import powImg from './images/pow.png'
+import breakpoints from './styles/breakpoints'
 
 const Outer = styled.div`
   position: absolute;
@@ -19,11 +23,28 @@ const Outer = styled.div`
   justify-content: center;
 `
 
+const Pow = styled.div`
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  background: url(${powImg}) no-repeat center center;
+  background-size: contain;
+  
+  @media (min-width: ${breakpoints.md}) {
+    transform: rotate(90deg);
+  }
+`
+
 class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      currentPage: PAGES.CHOOSE_WEAPON,
+      // currentPage: PAGES.CHOOSE_WEAPON,
+      currentPage: PAGES.INTRO,
       fightResult: null,
     }
 
@@ -59,13 +80,22 @@ class App extends React.Component {
         return <ChooseWeaponPage onClickWeapon={this.fight}/>
 
       case PAGES.LOADING:
-        return <FightLoadingPage
-          fightData={this.state.fightResult}
-          loadingTime={2000}
-          callBack={() => this.changePage(PAGES.CHOOSE_WEAPON)}
-        />
+        return (
+          <FightLoadingPage
+            fightData={this.state.fightResult}
+            shakingCount={3}
+            callBack={() => this.changePage(PAGES.RESULT)}
+          />
+        )
 
       case PAGES.RESULT:
+        return (
+          <ResultPage
+            fightData={this.state.fightResult}
+            onShareClick={() => console.log('SHARE')}
+            onRetryClick={() => this.changePage(PAGES.INTRO)}
+          />
+        )
       case PAGES.INTRO:
       default:
         return <IntroPage onClickPlay={() => this.changePage(PAGES.CHOOSE_WEAPON)}/>
@@ -73,9 +103,12 @@ class App extends React.Component {
   }
 
   render() {
+    const showPlayerInfo = this.state.currentPage === PAGES.LOADING || this.state.currentPage === PAGES.RESULT
     return (
       <Outer>
         {this.pageToRender()}
+        {showPlayerInfo && <PlayersInfo/>}
+        <Pow/>
       </Outer>
     )
   }

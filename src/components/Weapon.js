@@ -4,6 +4,7 @@ import { WEAPON_NAMES } from '../constants/weapons'
 import imgHandPaper from '../images/hand-paper.png'
 import imgHandRock from '../images/hand-rock.png'
 import imgHandScissor from '../images/hand-scissor.png'
+import breakpoints from '../styles/breakpoints'
 
 export const getWeaponImage = (weaponName) => {
   switch (weaponName) {
@@ -18,15 +19,43 @@ export const getWeaponImage = (weaponName) => {
   }
 }
 
-const styleActive = css`
+export const styleActive = css`
   box-shadow: inset 0 0 10px 4px rgba(0,0,0,0.5);
   background-color: #d8c839;
 `
 
-const Weapon = styled.div`
+export const stylesResponsive = {
+  mobile: {
+    width: '180px',
+    height: '180px',
+  },
+  desktop: {
+    width: '220px',
+    height: '220px',
+  },
+}
+
+export const WeaponWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  
+  @media(min-width: ${breakpoints.md}) {
+    flex-direction: row;
+  }
+`
+
+export const WeaponBox = styled.div`
   display: block;
-  width: 220px;
-  height: 220px;
+  width: ${stylesResponsive.mobile.width};
+  height: ${stylesResponsive.mobile.width};
+  
+  @media (min-width: ${breakpoints.md}) {
+    width: ${stylesResponsive.desktop.width};
+    height: ${stylesResponsive.desktop.width};
+  }
+`
+
+export const Weapon = WeaponBox.extend`
   background: url(${props => getWeaponImage(props.name)}) no-repeat center center;
   background-size: 70%;
   border-radius: 50%;

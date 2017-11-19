@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom'
 import { injectGlobal } from 'styled-components'
 
 import App from './App'
-import powImg from './images/pow.png'
 import registerServiceWorker from './registerServiceWorker'
+import colors from './styles/colors'
 
 // eslint-disable-next-line no-unused-expressions
 injectGlobal`
@@ -17,8 +17,7 @@ injectGlobal`
     padding: 0;
     font-family: Tahoma, sans-serif;
     box-sizing: border-box;
-    background: deepskyblue url(${powImg}) no-repeat center center;
-    background-size: contain;
+    background-color: ${colors.primary};
   }
   
   * {
