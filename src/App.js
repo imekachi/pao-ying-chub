@@ -25,9 +25,15 @@ class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      // currentPage: PAGES.CHOOSE_WEAPON,
+      isFirstTry: true,
       currentPage: PAGES.INTRO,
+      // currentPage: PAGES.CHOOSE_WEAPON,
+      // currentPage: PAGES.PLAYER_INFO,
+      // currentPage: PAGES.LOADING,
       fightResult: null,
+      playerData: {
+        id: 842964855757927,
+      },
     }
 
     this.changePage = this.changePage.bind(this)
@@ -51,7 +57,12 @@ class App extends React.Component {
     this.setState({
       fightResult: getFightResult(userWeapon),
     }, () => {
-      this.changePage(PAGES.LOADING)
+      if (this.state.isFirstTry) {
+        this.setState({ isFirstTry: false })
+        this.changePage(PAGES.PLAYER_INFO)
+      } else {
+        this.changePage(PAGES.LOADING)
+      }
       console.log(this.state.fightResult)
     })
   }
@@ -61,11 +72,20 @@ class App extends React.Component {
       case PAGES.CHOOSE_WEAPON:
         return <ChooseWeaponPage onClickWeapon={this.fight}/>
 
+      case PAGES.PLAYER_INFO:
+        return (
+          <PlayersInfo
+            playerFBId={this.state.playerData.id}
+            showDuration={3000}
+            callBack={() => this.changePage(PAGES.LOADING)}
+          />
+        )
+
       case PAGES.LOADING:
         return (
           <FightLoadingPage
             fightData={this.state.fightResult}
-            shakingCount={3}
+            shakingCount={4}
             callBack={() => this.changePage(PAGES.RESULT)}
           />
         )
@@ -75,7 +95,7 @@ class App extends React.Component {
           <ResultPage
             fightData={this.state.fightResult}
             onShareClick={() => console.log('SHARE')}
-            onRetryClick={() => this.changePage(PAGES.INTRO)}
+            onRetryClick={() => this.changePage(PAGES.CHOOSE_WEAPON)}
           />
         )
       case PAGES.INTRO:
@@ -85,11 +105,9 @@ class App extends React.Component {
   }
 
   render() {
-    const showPlayerInfo = this.state.currentPage === PAGES.LOADING || this.state.currentPage === PAGES.RESULT
     return (
       <Outer>
         {this.pageToRender()}
-        {showPlayerInfo && <PlayersInfo/>}
       </Outer>
     )
   }

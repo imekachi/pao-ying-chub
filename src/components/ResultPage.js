@@ -1,38 +1,35 @@
 import React from 'react'
+import imgResultDraw from '../images/result-draw.png'
+import imgResultLose from '../images/result-lose.png'
+import imgResultWin from '../images/result-win.png'
+import imgBGVersus from '../images/scene-3.jpg'
+import MainLayout from './MainLayout'
 
-import { stylesResponsive, Weapon, WeaponBox, WeaponWrapper } from './Weapon'
-import { handTilt } from './FightLoadingPage'
+import { Weapon, WeaponWrapper } from './Weapon'
 
-const Result = WeaponBox.extend`
-  line-height: ${stylesResponsive.mobile.height};
-  font-family: 'Comic Sans MS', sans-serif;
-  font-size: 60px;
-  font-weight: bold;
-  color: #FFFFFF;
-`
-
-const WeaponResult = Weapon.extend`
-  transform: rotate(${handTilt.end});
-  transform-origin: bottom;
+const ResultPopUp = Weapon.withComponent('img').extend`
+  width: auto;
 `
 
 const ResultPage = ({ fightData, onRetryClick }) => {
   const { playerWeapon, opponentWeapon, isWin, isDraw } = fightData
-  let resultText = 'LOSE'
+  let resultImg = imgResultLose
   let isLose = !isWin && !isDraw
 
   if (isWin) {
-    resultText = 'WIN'
+    resultImg = imgResultWin
   } else if (isDraw) {
-    resultText = 'DRAW'
+    resultImg = imgResultDraw
   }
 
   return (
-    <WeaponWrapper>
-      <WeaponResult active name={opponentWeapon} lose={isWin}/>
-      <Result onClick={onRetryClick}>{resultText}</Result>
-      <WeaponResult active name={playerWeapon} lose={isLose}/>
-    </WeaponWrapper>
+    <MainLayout bg={imgBGVersus}>
+      <WeaponWrapper>
+        <Weapon name={opponentWeapon} lose={isWin}/>
+        <ResultPopUp src={resultImg} onClick={onRetryClick}/>
+        <Weapon name={playerWeapon} lose={isLose}/>
+      </WeaponWrapper>
+    </MainLayout>
   )
 }
 

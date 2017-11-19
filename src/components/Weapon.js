@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 import { WEAPON_NAMES } from '../constants/weapons'
 import imgHandPaper from '../images/hand-paper.png'
@@ -17,11 +17,6 @@ export const getWeaponImage = (weaponName) => {
       return null
   }
 }
-
-export const styleActive = css`
-  box-shadow: inset 0 0 10px 4px rgba(0,0,0,0.5);
-  background-color: #d8c839;
-`
 
 export const stylesResponsive = {
   mobile: {
@@ -50,12 +45,7 @@ export const Weapon = WeaponBox.extend`
   background-size: 80%;
   border-radius: 50%;
   cursor: pointer;
-  ${props => props.lose && 'filter: grayscale(1) brightness(0.8);'}
-  
-  ${props => props.active && styleActive}
-  &:hover {
-    ${styleActive}
-  }
+  ${props => props.lose && 'filter: brightness(0.7) grayscale(1);'}
 `
 
 export default Weapon

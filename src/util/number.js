@@ -13,7 +13,7 @@
  */
 export const getNumber = (data, isRound = false) => {
   let number = parseFloat(String(data).replace(/(?!^-)[^(\d|.)]/g, ''))
-  number     = isNaN(number) ? 0 : number
+  number = isNaN(number) ? 0 : number
 
   return isRound ? Math.round(number) : number
 }

@@ -1,34 +1,32 @@
 import React from 'react'
-import styled, { keyframes } from 'styled-components'
 
-import { stylesResponsive, Weapon, WeaponBox, WeaponWrapper } from './Weapon'
+import { keyframes } from 'styled-components'
 import { WEAPON_NAMES } from '../constants/weapons'
+import imgBGVersus from '../images/scene-3.jpg'
 import { parseTime } from '../util/unitConverter'
-
-const Result = WeaponBox.extend`
-  line-height: ${stylesResponsive.mobile.height};
-  font-family: 'Comic Sans MS', sans-serif;
-  font-size: 60px;
-  font-weight: bold;
-  color: #FFFFFF;
-`
+import MainLayout from './MainLayout'
+import { Weapon, WeaponBox, WeaponWrapper } from './Weapon'
 
 export const handTilt = {
-  start: '-20deg',
-  end: '10deg',
+  start: '-15deg',
+  end: '15deg',
 }
 
 const shakingHand = keyframes`
   0% {
+    transform: rotate(0);
+  }
+  
+  25% {
     transform: rotate(${handTilt.start});
   }
   
-  50% {
+  75% {
     transform: rotate(${handTilt.end});
   }
   
   100% {
-    transform: rotate(${handTilt.start});
+    transform: rotate(0);
   }
 `
 
@@ -38,20 +36,21 @@ const WeaponLoading = Weapon.extend`
   animation: ${shakingHand} ${props => props.duration} ${props => props.repeatCount || 'infinite'};
 `
 
-const FightLoadingPage = ({ fightData, shakingCount, callBack }) => {
-  const { playerWeapon, opponentWeapon } = fightData
+const FightLoadingPage = ({ fightData, shakingCount, callBack = () => undefined }) => {
+  const { playerWeapon } = fightData
   const animationTimeLap = 600
-  const loadingTime = ((shakingCount - 1) * animationTimeLap) + (animationTimeLap / 2)
-  // const loadingTime = shakingCount * animationTimeLap
+  const loadingTime = shakingCount * animationTimeLap
 
   setTimeout(callBack, loadingTime)
   return (
-    <WeaponWrapper>
-      {/*<Weapon active name={playerWeapon}/>*/}
-      <WeaponLoading duration={parseTime(animationTimeLap)} name={WEAPON_NAMES.ROCK}/>
-      <Result />
-      <WeaponLoading duration={parseTime(animationTimeLap)} name={WEAPON_NAMES.ROCK}/>
-    </WeaponWrapper>
+    <MainLayout bg={imgBGVersus}>
+      <WeaponWrapper>
+        <WeaponLoading duration={parseTime(animationTimeLap)} name={WEAPON_NAMES.ROCK}/>
+        <WeaponBox/>
+        <Weapon active name={playerWeapon}/>
+        {/*<WeaponLoading duration={parseTime(animationTimeLap)} name={WEAPON_NAMES.ROCK}/>*/}
+      </WeaponWrapper>
+    </MainLayout>
   )
 }
 

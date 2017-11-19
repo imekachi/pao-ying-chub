@@ -9,12 +9,12 @@ const Container = styled.div`
   position: fixed;
   margin: auto;
   top: 48%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 100%;
+  transform: translateY(-50%);
 `
 
 const Header = styled.img`
-  width: 300px;
+  width: 87%;
 `
 
 const PlayBtn = styled.button`
@@ -23,8 +23,8 @@ const PlayBtn = styled.button`
   height: 115px;
   background: url(${imgBtnPlay}) no-repeat center center;
   background-size: contain;
-  cursor: pointer;
   margin-top: 40px;
+  cursor: pointer;
 `
 
 const IntroPage = ({ onClickPlay }) => (
