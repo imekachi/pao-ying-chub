@@ -8,8 +8,6 @@ import PlayersInfo from './components/PlayersInfo'
 import ResultPage from './components/ResultPage'
 import { PAGES } from './constants/pages'
 import { getFightResult } from './game/core'
-import powImg from './images/pow.png'
-import breakpoints from './styles/breakpoints'
 
 const Outer = styled.div`
   position: absolute;
@@ -23,28 +21,12 @@ const Outer = styled.div`
   justify-content: center;
 `
 
-const Pow = styled.div`
-  display: block;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: -1;
-  background: url(${powImg}) no-repeat center center;
-  background-size: contain;
-  
-  @media (min-width: ${breakpoints.md}) {
-    transform: rotate(90deg);
-  }
-`
-
 class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      // currentPage: PAGES.CHOOSE_WEAPON,
-      currentPage: PAGES.INTRO,
+      currentPage: PAGES.CHOOSE_WEAPON,
+      // currentPage: PAGES.INTRO,
       fightResult: null,
     }
 
@@ -108,7 +90,6 @@ class App extends React.Component {
       <Outer>
         {this.pageToRender()}
         {showPlayerInfo && <PlayersInfo/>}
-        <Pow/>
       </Outer>
     )
   }

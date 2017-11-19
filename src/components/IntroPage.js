@@ -1,34 +1,39 @@
 import React from 'react'
 import styled from 'styled-components'
-import Avatar from './Avatar'
+import imgBtnPlay from '../images/btn-play.png'
+import imgHeader from '../images/header.png'
+import imgBGIntro from '../images/scene-1.jpg'
+import MainLayout from './MainLayout'
 
-const Wrapper = styled.div`
-  
+const Container = styled.div`
+  position: fixed;
+  margin: auto;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`
+
+const Header = styled.img`
+  width: 300px;
 `
 
 const PlayBtn = styled.button`
-  font-family: "Comic Sans MS", sans-serif;
-  font-size: 45px;
-  font-weight: bold;
-  border: 3px solid #333;
-  border-bottom-width: 6px;
-  border-radius: 10px;
-  padding: 12px 70px;
-  margin: 40px auto;
-  background-color: #fcf83d;
+  border: 0 none;
+  width: 300px;
+  height: 115px;
+  background: url(${imgBtnPlay}) no-repeat center center;
+  background-size: contain;
   cursor: pointer;
-  
-  &:hover {
-    background-color: #FFFFFF;
-  }
+  margin-top: 40px;
 `
 
 const IntroPage = ({ onClickPlay }) => (
-  <Wrapper>
-    <Avatar mascot/>
-    <PlayBtn onClick={onClickPlay}>Play!!</PlayBtn>
-    <Avatar/>
-  </Wrapper>
+  <MainLayout bg={imgBGIntro}>
+    <Container>
+      <Header src={imgHeader}/>
+      <PlayBtn onClick={onClickPlay} title="เริ่มเล่น"/>
+    </Container>
+  </MainLayout>
 )
 
 export default IntroPage
