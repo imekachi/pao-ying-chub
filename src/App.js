@@ -25,8 +25,8 @@ class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      currentPage: PAGES.CHOOSE_WEAPON,
-      // currentPage: PAGES.INTRO,
+      // currentPage: PAGES.CHOOSE_WEAPON,
+      currentPage: PAGES.INTRO,
       fightResult: null,
     }
 
