@@ -1,9 +1,11 @@
 {
-  "main.js": "static/js/main.9c494fd0.js",
-  "main.js.map": "static/js/main.9c494fd0.js.map",
-  "static\\media\\hand-paper.png": "static/media/hand-paper.0898f377.png",
-  "static\\media\\hand-rock.png": "static/media/hand-rock.5dc3ebf3.png",
-  "static\\media\\hand-scissor.png": "static/media/hand-scissor.3714f4fe.png",
-  "static\\media\\mascot.png": "static/media/mascot.981470e7.png",
-  "static\\media\\pow.png": "static/media/pow.8ce11af6.png"
+  "main.js": "static/js/main.98a6739b.js",
+  "main.js.map": "static/js/main.98a6739b.js.map",
+  "static\\media\\btn-play.png": "static/media/btn-play.df598899.png",
+  "static\\media\\hand-paper.png": "static/media/hand-paper.dc67dbfc.png",
+  "static\\media\\hand-rock.png": "static/media/hand-rock.49e12758.png",
+  "static\\media\\hand-scissor.png": "static/media/hand-scissor.0139e2fd.png",
+  "static\\media\\header.png": "static/media/header.d3a3555e.png",
+  "static\\media\\scene-1.jpg": "static/media/scene-1.a50fca54.jpg",
+  "static\\media\\scene-2.jpg": "static/media/scene-2.e97f98b3.jpg"
 }
