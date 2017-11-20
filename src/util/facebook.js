@@ -9,18 +9,23 @@ export const login = (callBack = () => undefined) => {
     if (!response.authResponse) return false
 
     window.FB.api('/me', function(response) {
+      // axios.post('url', {
+      //   ...response,
+      //   อยากได้อะไรอยากใส่อะไรก็ใส่เลย
+      // })
+      console.log('>> response: ', response)
       callBack(response)
     });
   }, {scope: 'email,user_likes,publish_actions'});
 }
 
-export const share = (urlToShare) => {
+export const share = (urlToShare, callBack) => {
   if (!window.FB) return false
+  urlToShare = urlToShare || window.location.href
   window.FB.ui({
     method: 'share',
-    display: 'popup',
     href: urlToShare,
-  }, function (response) {})
+  }, callBack)
 }
 
 window.share = share

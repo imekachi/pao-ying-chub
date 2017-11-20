@@ -84,7 +84,7 @@ class App extends React.Component {
   }
 
   shareClick() {
-    const urlToShare = '/'
+    const urlToShare = 'http://mhooeng.com/mek/'
     facebookShare(urlToShare)
   }
 
@@ -137,8 +137,7 @@ class App extends React.Component {
         {this.state.showModalResult && (
           <ModalResult
             isWin={this.state.fightResult.isWin}
-            // onShareClick={this.shareClick}
-            onShareClick={this.replayClick}
+            onShareClick={this.shareClick}
             onReplayClick={this.replayClick}
           />
         )}
