@@ -8,6 +8,7 @@ import PlayersInfo from './components/PlayersInfo'
 import ResultPage from './components/ResultPage'
 import { PAGES } from './constants/pages'
 import { getFightResult } from './game/core'
+import { loginFacebook } from './util/facebook'
 
 const Outer = styled.div`
   position: absolute;
@@ -31,14 +32,13 @@ class App extends React.Component {
       // currentPage: PAGES.PLAYER_INFO,
       // currentPage: PAGES.LOADING,
       fightResult: null,
-      playerData: {
-        id: 842964855757927,
-      },
+      playerData: null,
     }
 
     this.changePage = this.changePage.bind(this)
     this.getUserWeapon = this.getUserWeapon.bind(this)
     this.fight = this.fight.bind(this)
+    this.playBtnClick = this.playBtnClick.bind(this)
   }
 
   changePage(pageName) {
@@ -65,6 +65,16 @@ class App extends React.Component {
       }
       console.log(this.state.fightResult)
     })
+  }
+
+  async playBtnClick() {
+    if (!this.state.playerData) {
+      this.setState({
+        playerData: await loginFacebook()
+      })
+    }
+
+    this.changePage(PAGES.CHOOSE_WEAPON)
   }
 
   pageToRender() {
@@ -100,7 +110,7 @@ class App extends React.Component {
         )
       case PAGES.INTRO:
       default:
-        return <IntroPage onClickPlay={() => this.changePage(PAGES.CHOOSE_WEAPON)}/>
+        return <IntroPage onClickPlay={this.playBtnClick}/>
     }
   }
 
