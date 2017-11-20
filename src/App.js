@@ -4,11 +4,12 @@ import styled from 'styled-components'
 import ChooseWeaponPage from './components/ChooseWeaponPage'
 import FightLoadingPage from './components/FightLoadingPage'
 import IntroPage from './components/IntroPage'
+import ModalResult from './components/ModalResult'
 import PlayersInfo from './components/PlayersInfo'
 import ResultPage from './components/ResultPage'
 import { PAGES } from './constants/pages'
 import { getFightResult } from './game/core'
-import { loginFacebook } from './util/facebook'
+import { login as facebookLogin, share as facebookShare } from './util/facebook'
 
 const Outer = styled.div`
   position: absolute;
@@ -33,12 +34,15 @@ class App extends React.Component {
       // currentPage: PAGES.LOADING,
       fightResult: null,
       playerData: null,
+      showModalResult: false,
     }
 
     this.changePage = this.changePage.bind(this)
     this.getUserWeapon = this.getUserWeapon.bind(this)
     this.fight = this.fight.bind(this)
     this.playBtnClick = this.playBtnClick.bind(this)
+    this.shareClick = this.shareClick.bind(this)
+    this.replayClick = this.replayClick.bind(this)
   }
 
   changePage(pageName) {
@@ -69,12 +73,24 @@ class App extends React.Component {
 
   async playBtnClick() {
     if (!this.state.playerData) {
-      this.setState({
-        playerData: await loginFacebook()
+      facebookLogin((response) => {
+        this.setState({
+          playerData: response,
+        })
+
+        this.changePage(PAGES.CHOOSE_WEAPON)
       })
     }
+  }
 
+  shareClick() {
+    const urlToShare = '/'
+    facebookShare(urlToShare)
+  }
+
+  replayClick() {
     this.changePage(PAGES.CHOOSE_WEAPON)
+    this.setState({ showModalResult: false })
   }
 
   pageToRender() {
@@ -104,8 +120,8 @@ class App extends React.Component {
         return (
           <ResultPage
             fightData={this.state.fightResult}
-            onShareClick={() => console.log('SHARE')}
-            onRetryClick={() => this.changePage(PAGES.CHOOSE_WEAPON)}
+            callBack={this.state.showModalResult ? null : (() => this.setState({ showModalResult: true })) }
+            callBackDelay={3000}
           />
         )
       case PAGES.INTRO:
@@ -118,6 +134,14 @@ class App extends React.Component {
     return (
       <Outer>
         {this.pageToRender()}
+        {this.state.showModalResult && (
+          <ModalResult
+            isWin={this.state.fightResult.isWin}
+            // onShareClick={this.shareClick}
+            onShareClick={this.replayClick}
+            onReplayClick={this.replayClick}
+          />
+        )}
       </Outer>
     )
   }

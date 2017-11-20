@@ -3,18 +3,31 @@ export const getUserProfile = (userId) => `https://graph.facebook.com/${userId}/
 /**
  * returns userData obj
  */
-export const loginFacebook = async () => {
-  const userData = await {
-    id: 842964855757927,
-  }
+export const login = (callBack = () => undefined) => {
+  if (!window.FB) return false
+  window.FB.login((response) => {
+    if (!response.authResponse) return false
 
-  console.log('>> fbLogin, userData:', userData)
-  return userData
+    window.FB.api('/me', function(response) {
+      callBack(response)
+    });
+  }, {scope: 'email,user_likes,publish_actions'});
 }
+
+export const share = (urlToShare) => {
+  if (!window.FB) return false
+  window.FB.ui({
+    method: 'share',
+    display: 'popup',
+    href: urlToShare,
+  }, function (response) {})
+}
+
+window.share = share
 
 const utilFB = {
   getUserProfile,
-  loginFacebook,
+  login,
 }
 
 export default utilFB

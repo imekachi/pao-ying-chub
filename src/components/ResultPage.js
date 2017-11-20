@@ -11,7 +11,7 @@ const ResultPopUp = Weapon.withComponent('img').extend`
   width: auto;
 `
 
-const ResultPage = ({ fightData, onRetryClick }) => {
+const ResultPage = ({ fightData, callBack, callBackDelay }) => {
   const { playerWeapon, opponentWeapon, isWin, isDraw } = fightData
   let resultImg = imgResultLose
   let isLose = !isWin && !isDraw
@@ -22,11 +22,13 @@ const ResultPage = ({ fightData, onRetryClick }) => {
     resultImg = imgResultDraw
   }
 
+  setTimeout(callBack, callBackDelay)
+
   return (
     <MainLayout bg={imgBGVersus}>
       <WeaponWrapper>
         <Weapon name={opponentWeapon} lose={isWin}/>
-        <ResultPopUp src={resultImg} onClick={onRetryClick}/>
+        <ResultPopUp src={resultImg}/>
         <Weapon name={playerWeapon} lose={isLose}/>
       </WeaponWrapper>
     </MainLayout>

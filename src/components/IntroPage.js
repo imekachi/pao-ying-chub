@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import imgBtnPlay from '../images/btn-play.png'
 import imgHeader from '../images/header.png'
 import imgBGIntro from '../images/scene-1.jpg'
+import Button from './Button'
 import MainLayout from './MainLayout'
 
 const Container = styled.div`
@@ -17,21 +18,15 @@ const Header = styled.img`
   width: 87%;
 `
 
-const PlayBtn = styled.button`
-  border: 0 none;
-  width: 300px;
-  height: 115px;
-  background: url(${imgBtnPlay}) no-repeat center center;
-  background-size: contain;
+const PlayBtn = Button.extend`
   margin-top: 40px;
-  cursor: pointer;
 `
 
 const IntroPage = ({ onClickPlay }) => (
   <MainLayout bg={imgBGIntro}>
     <Container>
       <Header src={imgHeader}/>
-      <PlayBtn onClick={onClickPlay} title="เริ่มเล่น"/>
+      <PlayBtn onClick={onClickPlay} src={imgBtnPlay} title="เริ่มเล่น"/>
     </Container>
   </MainLayout>
 )
