@@ -7,3 +7,11 @@
 3. cd {path folder ที่ clone}
 4. yarn
 แล้วรอลงจนเสร็จ
+
+
+#Production
+
+1. แก้พวก meta og:url, image อะไรพวกนี้
+2. แก้ app facebook id ที่ sdk
+3. src/App.js แก้ url share
+4. แก้ยิงข้อมูลที่ util/facebook.js, login
