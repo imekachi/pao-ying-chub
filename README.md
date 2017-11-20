@@ -15,3 +15,8 @@
 2. แก้ app facebook id ที่ sdk
 3. src/App.js แก้ url share
 4. แก้ยิงข้อมูลที่ util/facebook.js, login
+5. อยากแก้ algorithm src/game/core.js
+
+
+ถ้าแก้อะไรทุกอย่างเสร็จแล้วให้ yarn build
+แล้ว copy ทุกอย่างใน /build ไป deploy
