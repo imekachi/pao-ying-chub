@@ -110,7 +110,7 @@ class App extends React.Component {
       case PAGES.LOADING:
         return (
           <FightLoadingPage
-            fightData={this.state.fightResult}
+            playerFBId={this.state.playerData.id}
             shakingCount={4}
             callBack={() => this.changePage(PAGES.RESULT)}
           />

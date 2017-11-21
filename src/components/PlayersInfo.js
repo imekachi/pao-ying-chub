@@ -21,36 +21,36 @@ const Container = styled.div`
   transform: translateX(-50%);
 `
 
-const avatarSize = 130
+export const avatarSize = 130
 
-const AvatarAI = styled.img`
+export const AvatarAI = styled.img`
   display: block;
-  width: ${parsePixel(avatarSize)};
+  width: ${props => props.width ? parsePixel(props.width) : parsePixel(avatarSize)};
 `
 
-const PlayerFrame = styled.div`
+export const PlayerFrame = styled.div`
   position: relative;
-  width: ${parsePixel(avatarSize)};
-  height: ${parsePixel(avatarSize * 1.34285714)};
+  width: ${props => props.width ? parsePixel(props.width) : parsePixel(avatarSize)};
+  height: ${props => props.width ? parsePixel(props.width * 1.34285714) : parsePixel(avatarSize * 1.34285714)};
   background: url(${imgAvatarPlayerFrame}) no-repeat center center;
   background-size: contain;
 `
-const plyerImgSize = 101 // avatarSize * 0.785714286
+export const plyerImgSize = 101 // avatarSize * 0.785714286
 
-const PlayerImg = styled.div`
+export const PlayerImg = styled.div`
   position: absolute;
-  top: 11px;
-  left: 15px;
-  width: ${parsePixel(plyerImgSize)};
-  height: ${parsePixel(plyerImgSize)};
-  border-radius: 15px;
+  top: ${props => props.top ? parsePixel(props.top) : '11px'};
+  left: ${props => props.top ? parsePixel(props.left) : '15px'};
+  width: ${props => props.width ? parsePixel(props.width) : parsePixel(plyerImgSize)};
+  height: ${props => props.width ? parsePixel(props.width) : parsePixel(plyerImgSize)};
+  border-radius: ${props => props.corner ? parsePixel(props.corner) : '15px'};
   background: url(${props => props.src}) no-repeat center center;
   background-size: cover;
 `
 
-const AvatarPlayer = ({ src }) => (
-  <PlayerFrame>
-    <PlayerImg src={src}/>
+export const AvatarPlayer = ({ src, frameWidth, imgWidth, top, left, corner }) => (
+  <PlayerFrame width={frameWidth}>
+    <PlayerImg src={src} width={imgWidth} top={top} left={left} corner={corner}/>
   </PlayerFrame>
 )
 
