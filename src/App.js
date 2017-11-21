@@ -119,9 +119,10 @@ class App extends React.Component {
       case PAGES.RESULT:
         return (
           <ResultPage
+            playerFBId={this.state.playerData.id}
             fightData={this.state.fightResult}
             callBack={this.state.showModalResult ? null : (() => this.setState({ showModalResult: true })) }
-            callBackDelay={3000}
+            callBackDelay={3500}
           />
         )
       case PAGES.INTRO:
